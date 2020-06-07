@@ -1,0 +1,46 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist-srv",
+    "module": "commonjs",
+    "target": "ES2017",
+    "lib": ["ES2017"],
+    "noEmit": false, // was: true
+    "incremental": true,
+    "allowJs": true,
+    // "rootDirs": [
+    //   "./app/",
+    //   "./config/"
+    // ],
+    "paths": {
+      "@common/*": [
+          "common/*"
+      ],
+      "@srv/*": [
+          "server/app/*"
+      ],
+      "@migration/*": [
+          "server/migration/*"
+      ],
+      "*": [
+          "../typings/*",
+          "../node_modules/@types/*",
+          "*"
+      ]
+    }
+  },
+  "files": ["./src/server/main.ts"],
+  "exclude": [
+    "src/client",
+    "node_modules",
+    "target",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "__tests__",
+    "src/setupTests.ts",
+    "jest.config.js"
+  ]
+  
+}

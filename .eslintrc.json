@@ -1,0 +1,53 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks", "import"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "amd": true,
+    "jasmine": true,
+    "jest": true,
+    "es6": true
+  },
+  "globals": {
+    "process": "readonly"
+  },
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": false }],
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-undef": "off",
+    "no-return-await": "warn",
+    "import/no-cycle": "warn"
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}

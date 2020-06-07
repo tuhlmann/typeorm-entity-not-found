@@ -1,0 +1,23 @@
+{
+  "tsimporter.filesToScan": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "tsimporter.doubleQuotes": true,
+  "tsimporter.spaceBetweenBraces": true,
+  "tsimporter.preferRelative": true,
+  "tsimporter.disabled": true,
+  "prettier.disableLanguages": [
+    "vue",
+    "javascript",
+    "typescript",
+    "typescript-react"
+  ],
+  "typescriptHero.imports.insertSemicolons": false,
+  "typescriptHero.imports.stringQuoteStyle": "\"",
+  "typescriptHero.imports.multiLineWrapThreshold": 120,
+  "typescriptHero.imports.multiLineTrailingComma": false,
+  "typescriptHero.imports.organizeOnSave": false,
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "browser-preview.startUrl": "http://localhost:4500",
+}
