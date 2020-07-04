@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common"
-import { TypeOrmModule } from "@nestjs/typeorm"
-import { UserRepository } from "./user.repository"
+import { SequelizeModule } from "@nestjs/sequelize"
+import { User } from "./user.entity"
 import { UsersService } from "./users.service"
+import { UsersRepository } from "./users.repository"
 
 /**
  * NOTE: You need to export TypeOrmModule because others will user the UserRepository.
@@ -9,9 +10,9 @@ import { UsersService } from "./users.service"
  */
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository])],
+  imports: [SequelizeModule.forFeature([User])],
   controllers: [],
-  providers: [UsersService],
-  exports: [UsersService, TypeOrmModule],
+  providers: [UsersService, UsersRepository],
+  exports: [UsersService, UsersRepository, SequelizeModule],
 })
 export class UsersModule {}

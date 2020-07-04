@@ -1,16 +1,31 @@
 import { RegisterUserDto } from "@common/session/dto/session-data.dto"
 import { RegisterAccountReqDetails } from "@common/session/session.interface"
 import { Injectable } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
+import { InjectModel, InjectConnection } from "@nestjs/sequelize"
 import { User } from "./user.entity"
-import { UserRepository } from "./user.repository"
+import { UsersRepository } from "./users.repository"
+import { Sequelize } from "sequelize"
+import { Umzug, SequelizeStorage } from "umzug"
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(UserRepository)
-    private userRepository: UserRepository,
-  ) {}
+    private readonly userRepository: UsersRepository,
+    @InjectConnection() private readonly sequelize: Sequelize,
+  ) {
+    const umzug = new Umzug({
+      storage: new SequelizeStorage({ sequelize }),
+      migrations: {
+        path: "./migrations",
+        params: [sequelize.getQueryInterface()],
+      },
+    })
+    umzug.up().then(r => {
+      console.log(r)
+    })
+
+    this.findUserByName("hallo").then(r => console.log(r))
+  }
 
   /**
    * Create a fresh User instance
@@ -26,6 +41,10 @@ export class UsersService {
 
   async findUserById(userId: string): Promise<User> {
     return this.userRepository.findById(userId)
+  }
+
+  async findUserByName(name: string): Promise<User | null> {
+    return User.findOne({ where: { name } })
   }
 
   async saveUser(user: User): Promise<User> {

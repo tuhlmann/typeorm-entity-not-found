@@ -13,12 +13,14 @@
     "dev:server": "tsc-watch -p tsconfig.server.json --onSuccess \"cross-env TZ=utc TS_NODE_PROJECT=tsconfig.server.json node -r tsconfig-paths/register -r ts-node/register/transpile-only dist-srv/server/main.js\"",
     "dev:server2": "cross-env NODE_ENV=development ts-node-dev --type-check --no-notify --project tsconfig.server.json --respawn --transpileOnly --all-deps -r tsconfig-paths/register ./src/server/main.ts",
     "start:local": "cross-env TZ=utc NODE_ENV=production TS_NODE_PROJECT=tsconfig.server.json node -r tsconfig-paths/register -r ts-node/register/transpile-only dist-srv/server/main.js",
-    "build": "npm run tsc && npm run lint"
+    "build": "npm run tsc && npm run lint",
+    "migrate": "ts-node migrate.ts"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.3",
     "@nestjs/core": "^7.0.3",
     "@nestjs/platform-express": "^7.0.3",
+    "@nestjs/sequelize": "^0.1.0",
     "@nestjs/typeorm": "^7.0.0",
     "babel-register": "^6.26.0",
     "class-transformer": "^0.2.3",
@@ -32,8 +34,11 @@
     "pg": "^7.18.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
+    "sequelize": "^5.21.12",
+    "sequelize-typescript": "^1.1.0",
     "ts-node": "^8.10.2",
     "typeorm": "^0.2.25",
+    "umzug": "^3.0.0-beta.5",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
@@ -50,9 +55,11 @@
     "@babel/preset-typescript": "^7.8.3",
     "@nestjs/cli": "^7.0.2",
     "@nestjs/testing": "^7.0.3",
+    "@types/bluebird": "^3.5.32",
     "@types/express": "4.17.2",
     "@types/node": "13.7.1",
     "@types/uuid": "^7.0.2",
+    "@types/validator": "^13.0.0",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
     "autoprefixer": "^9.7.4",
