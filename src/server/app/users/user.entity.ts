@@ -1,31 +1,28 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm"
 import { UserRegisterState } from "@common/session/session.interface"
+import { Entity, Enum, Index, PrimaryKey, Property, WrappedEntity } from "mikro-orm"
+import { v4 } from "uuid"
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id: string
+  @PrimaryKey()
+  id: string = v4()
 
-  @CreateDateColumn({ type: "timestamptz" })
-  created: Date
+  @Property({ type: "timestamptz", onCreate: () => new Date() })
+  created!: Date
 
-  @UpdateDateColumn({ type: "timestamptz" })
-  updated: Date
+  @Property({ type: "timestamptz", onCreate: () => new Date(), onUpdate: () => new Date() })
+  updated!: Date
 
-  @Index({ unique: true })
-  @Column()
+  @Index({ options: { unique: true } })
+  @Property()
   email: string
 
-  @Column()
+  @Property()
   name: string
 
-  @Column({ type: "enum", enum: UserRegisterState })
-  registerState: UserRegisterState
+  @Enum({ type: "UserRegisterState" })
+  registerState: UserRegisterState = UserRegisterState.unverified
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface User extends WrappedEntity<User, "id"> {}

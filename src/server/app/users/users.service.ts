@@ -1,14 +1,14 @@
 import { RegisterUserDto } from "@common/session/dto/session-data.dto"
 import { RegisterAccountReqDetails } from "@common/session/session.interface"
 import { Injectable } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
 import { User } from "./user.entity"
 import { UserRepository } from "./user.repository"
+import { InjectRepository } from "nestjs-mikro-orm"
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(UserRepository)
+    @InjectRepository(User)
     private userRepository: UserRepository,
   ) {}
 
@@ -25,10 +25,14 @@ export class UsersService {
   }
 
   async findUserById(userId: string): Promise<User> {
-    return this.userRepository.findById(userId)
+    return this.userRepository.findOneOrFail({ id: userId }) //findById(userId)
   }
 
   async saveUser(user: User): Promise<User> {
-    return this.userRepository.save(user)
+    console.log("USER: ", user)
+
+    // persist mutates the user instance (which is now part of identity map)
+    await this.userRepository.persist(user, true)
+    return user
   }
 }

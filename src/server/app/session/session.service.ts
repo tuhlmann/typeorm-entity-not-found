@@ -1,13 +1,14 @@
 import { Option } from "@common/models/base"
 import { SessionDto, SessionUser } from "@common/session/dto/session-data.dto"
 import { Injectable, Logger } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
 import { UserRepository } from "../users/user.repository"
+import { InjectRepository } from "nestjs-mikro-orm"
+import { User } from "@srv/users/user.entity"
 
 @Injectable()
 export class SessionService {
   constructor(
-    @InjectRepository(UserRepository)
+    @InjectRepository(User)
     private readonly userRepository: UserRepository,
   ) {}
 

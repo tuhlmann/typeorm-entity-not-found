@@ -1,12 +1,12 @@
 import { ConflictException, InternalServerErrorException, NotFoundException } from "@nestjs/common"
-import { EntityRepository, Repository } from "typeorm"
 import { User } from "./user.entity"
+import { EntityRepository, Repository } from "mikro-orm"
 
-@EntityRepository(User)
-export class UserRepository extends Repository<User> {
+@Repository(User)
+export class UserRepository extends EntityRepository<User> {
   async registerUser(user: User): Promise<User> {
     try {
-      return await this.save(user)
+      return user.init(true)
     } catch (error) {
       if (error.code === "23505") {
         throw new ConflictException(`User with email ${user.email} already exists`)
