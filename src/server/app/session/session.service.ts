@@ -3,7 +3,7 @@ import { SessionDto, SessionUser } from "@common/session/dto/session-data.dto"
 import { Injectable, Logger } from "@nestjs/common"
 import { UserRepository } from "../users/user.repository"
 import { InjectRepository } from "nestjs-mikro-orm"
-import { User } from "@srv/users/user.entity"
+import { User } from "../users/user.entity"
 
 @Injectable()
 export class SessionService {

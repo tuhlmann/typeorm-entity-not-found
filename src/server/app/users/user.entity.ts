@@ -7,11 +7,11 @@ export class User {
   @PrimaryKey()
   id: string = v4()
 
-  @Property({ type: "timestamptz", onCreate: () => new Date() })
-  created!: Date
+  @Property({ columnType: "timestamptz", onCreate: () => new Date() })
+  created: Date
 
-  @Property({ type: "timestamptz", onCreate: () => new Date(), onUpdate: () => new Date() })
-  updated!: Date
+  @Property({ columnType: "timestamptz", onCreate: () => new Date(), onUpdate: () => new Date() })
+  updated: Date
 
   @Index({ options: { unique: true } })
   @Property()
@@ -20,7 +20,7 @@ export class User {
   @Property()
   name: string
 
-  @Enum({ type: "UserRegisterState" })
+  @Enum({ type: "UserRegisterState", items: () => UserRegisterState })
   registerState: UserRegisterState = UserRegisterState.unverified
 }
 
